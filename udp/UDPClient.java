@@ -39,16 +39,31 @@ public class UDPClient {
 
 
 		// TO-DO: Construct UDP client class and try to send messages
+		UDPClient myClient = new UDPClient(recvPort);
+		myClient.testLoop(serverAddr,recvPort,countTo);
+		
 	}
 
 	public UDPClient() {
 		// TO-DO: Initialise the UDP socket for sending data
+		try{
+				sendSoc = new DatagramSocket(recvPort);
+		}catch(Exception e){ 												//exception E is empty catch clause, or silent catch clause
+				System.out.println(" could not create datagramsocket");
+		}
+		
 	}
 
 	private void testLoop(InetAddress serverAddr, int recvPort, int countTo) {
 		int				tries = 0;
 
 		// TO-DO: Send the messages to the server
+		for(int i = 0; i<countTo;i++){
+				
+				String m = new String( (Integer.toString(countT)) + ";" + (Integer.toString(i)));
+				System.out.println(m);
+				this.send(m,serverAddr,recvPort);
+		}
 	}
 
 	private void send(String payload, InetAddress destAddr, int destPort) {
@@ -57,5 +72,20 @@ public class UDPClient {
 		DatagramPacket		pkt;
 
 		// TO-DO: build the datagram packet and send it to the server
+		payloadSize = payload.length();
+		pktData = payload.getBytes();
+		
+		try{
+				DatagramPacket pkt = new DatagramPacket(pktData, payloadsize , destAddr, destPort);
+				sendSoc.send(pkt);
+				
+		} catch(Exception e){
+				System.out.println(e.toString());
+				System.out.println("message not sent");
+		}
+	}
+}
+		
+		
 	}
 }
