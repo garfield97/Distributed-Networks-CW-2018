@@ -67,7 +67,7 @@ public class UDPServer {
 
   }
 
-  public void finish() {
+  public void print_out() {
   // Function to print stats at end of transmissio
 
     // Print error if no messages recieved
@@ -136,7 +136,7 @@ public class UDPServer {
     server.run();
 
     // Print out stats on completion
-    server.finish();
+    server.print_out();
     return;
   }
 
