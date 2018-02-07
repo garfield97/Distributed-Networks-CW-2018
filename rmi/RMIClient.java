@@ -32,8 +32,8 @@ public class RMIClient {
 		// TO-DO: Bind to RMIServer
 
 			try{
-				Registry registry = LocateRegistry.getRegistry(urlServer);
-				RMIServerI  stub = (RMIServerI) registry.lookup("Server");
+				Registry registry = LocateRegistry.getRegistry(urlServer,1099);
+				RMIServerI  stub = (RMIServerI) registry.lookup(urlServer);
 				System.out.println("connected to server");
 				stub.receiveMessage(mes);
 			} catch(Exception e){
@@ -41,6 +41,6 @@ public class RMIClient {
 			}
 
 		// TO-DO: Attempt to send messages the specified number of times
-
+		
 	}
 }
