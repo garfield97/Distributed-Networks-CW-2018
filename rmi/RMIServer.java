@@ -42,14 +42,14 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		}
 		// TO-DO: Instantiate the server class
 		try {
-			RMIServer server = new RMIServer();
-		// TO-DO: Bind to RMI registry
-			rebindServer("rmi://localhost/RMIServer",server);
+			rmis = new RMIServer();
 		}
 		catch(Exception e) {
 			System.err.println("Server Exception: " + e.toString());
 			e.printStackTrace();
 		}
+		// TO-DO: Bind to RMI registry
+		rebindServer("RMIServer",rmis);
 	}
 
 	protected static void rebindServer(String serverURL, RMIServer server) {
