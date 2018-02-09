@@ -42,7 +42,8 @@ public class RMIClient {
 
 		// TO-DO: Attempt to send messages the specified number of times
 		try{
-			for(mes.messageNum = 0;mes.messageNum<mes.totalMessages;mes.messageNum++){
+			for(int i = 0;i<mes.totalMessages;i++){
+			mes.messageNum = i;
 			iRMIServer.receiveMessage(mes);
 		}
 	} catch(RemoteException e){
