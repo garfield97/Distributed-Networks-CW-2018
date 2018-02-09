@@ -35,12 +35,18 @@ public class RMIClient {
 				//Registry registry = LocateRegistry.getRegistry(urlServer,1099);
 				iRMIServer = (RMIServerI) Naming.lookup(urlServer);
 				System.out.println("connected to server");
-				iRMIServer.receiveMessage(mes);
+
 			} catch(Exception e){
 				System.out.println(e);
 			}
 
 		// TO-DO: Attempt to send messages the specified number of times
-
+		try{
+			for(mes.messageNum = 0;mes.messageNum<mes.totalMessages;mes.messageNum++){
+			iRMIServer.receiveMessage(mes);
+		}
+	} catch(RemoteException e){
+			System.out.println(e);
+		}
 	}
 }
