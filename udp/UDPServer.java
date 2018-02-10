@@ -1,32 +1,39 @@
 package udp;
 
 import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.net.*;
 import java.util.Arrays;
 import java.lang.Boolean;
 import common.MessageInfo;
+
  
 public class UDPServer {
 
-  private final static int MAXPACKETLENGTH = 50;
+  private final static int maxpktsize = 50;
   private DatagramSocket recvSoc;
   private int totalSent = -1;
   private boolean[] receivedMessages;
   private int totalRecieved = -1;
 
   private void run() {
-  //Function to recieve and process messages
 
-    byte[]      pacData = new byte[MAXPACKETLENGTH];
+
+    byte[]      pacData = new byte[maxpktsize];
     DatagramPacket  pac = null;
     boolean open = true;
 
-    // Keep recieving messages until timeout ends, or when all messages recieved
+    // TO-DO: Receive the messages and process them by calling processMessage(...).
+    //        Use a timeout (e.g. 30 secs) to ensure the program doesn't block forever
+
     do {
       try {
 
         // Setup recieving packet, with buffer
-        pac = new DatagramPacket(pacData, MAXPACKETLENGTH);
+        pac = new DatagramPacket(pacData, maxpktsize);
 
         // Set timeout on Socket, and recieve packet
         recvSoc.setSoTimeout(30000) ;
@@ -43,9 +50,8 @@ public class UDPServer {
   }
 
   public void processMessage(String data) {
-  // Function to process incoming data
 
-    // Cast string to MessageInfo
+   // TO-DO: Use the data to construct a new MessageInfo object
     MessageInfo msg = null;
     try {
       msg = new MessageInfo(data); 
@@ -54,7 +60,7 @@ public class UDPServer {
       System.exit(-1);
     }
     
-    // Setup if first message
+    // TO-DO: On receipt of first message, initialise the receive buffer
     if (totalRecieved == -1 ){
       totalSent = msg.totalMessages;
       receivedMessages = new boolean[totalSent];
@@ -67,7 +73,7 @@ public class UDPServer {
 
   }
 
-  public void finish() {
+  public void print_out() {
   // Function to print stats at end of transmissio
 
     // Print error if no messages recieved
@@ -111,7 +117,7 @@ public class UDPServer {
 
 
   public UDPServer(int rp) {
-  // Setup Socket on initialisation
+    // TO-DO: Initialise UDP socket for receiving data
 
     try {
       recvSoc = new DatagramSocket(rp);
@@ -125,18 +131,21 @@ public class UDPServer {
 
   public static void main(String args[]) {
     int recvPort;
+    
+    
+    // Get the parameters from command line    
     if (args.length < 1) {
       System.err.println("Arguments required: recv port");
       System.exit(-1);
     }
     recvPort = Integer.parseInt(args[0]);
 
-    // Setup and Run Server
+    // TO-DO: Construct Server object and start it by calling run().
     UDPServer server = new UDPServer(recvPort);
     server.run();
 
     // Print out stats on completion
-    server.finish();
+    server.print_out();
     return;
   }
 

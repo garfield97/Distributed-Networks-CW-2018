@@ -32,14 +32,14 @@ public class UDPClient {
       recvPort = Integer.parseInt(args[1]);
       countTo = Integer.parseInt(args[2]);
 
-      // Initialise client and run loop to send messages
+      // TO-DO: Construct UDP client class and try to send messages
       UDPClient client = new UDPClient();
       client.testLoop(serverAddr, recvPort, countTo);
       return;
    }
 
    public UDPClient() {
-   // Setup Socket on initialisation
+     // TO-DO: Initialise the UDP socket for sending data
       try {
          sendSoc = new DatagramSocket();
       } catch (SocketException e) {
@@ -50,7 +50,7 @@ public class UDPClient {
    }
 
    private void testLoop(InetAddress serverAddr, int recvPort, int countTo) {
-   // Function to send required number of messages
+    // TO-DO: Send the messages to the server
 
       for (int i = 0; i < countTo; i++) {
          // Setup message as MessageInfo, then cast it to a string
@@ -63,7 +63,7 @@ public class UDPClient {
    private void send(String payload, InetAddress destAddr, int destPort) {
    // Function to send an individual packet
 
-      // Setup the packet with the 4 required arguments
+      // TO-DO: build the datagram packet and send it to the server
       byte[] pktData = payload.getBytes();
       int payloadSize = pktData.length;
       DatagramPacket pkt;
